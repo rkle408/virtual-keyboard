@@ -33,4 +33,21 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    vertical-align: top;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+    position: relative;
+}
+
+.keyboard-key:active {
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.keyboard-key-wide {
+    width: 12%;
+}
+
+.keyboard-key-extrawide {
+    width: 36%;
+    max-width: 500px;
 }
