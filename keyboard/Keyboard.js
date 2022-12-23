@@ -34,6 +34,43 @@ const Keyboard = {
 
     _createKeys() {
         // This is a private method, creates all the HTML for each one of the keys
+        // Will return a document fragment -- virtual elements that you can use to append to other elements then append those to another element
+        const fragment = document.createDocumentFragment();
+        const keyLayout = [
+            "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "backspace",
+            "q", "w", "e", "r", "t", "y", "u", "i", "o", "p",
+            "caps", "a", "s", "d", "f", "g", "h", "j", "k", "l", "enter",
+            "done", "z", "x", "c", "v", "b", "n", "m", ",", ".", "?",
+            "space"
+        ];
+
+        // Creates HTML for an icon
+        const createIconHTML = (icon_name) => {
+            return `<i class="materials-icons">${icon_name}</i>`;
+        };
+
+        // Loop through the characters
+        keyLayout.forEach(key => {
+            const keyElement = document.createElement("button");
+            const insertLineBreak = ["backspace", "p", "enter", "?"].indexOf(key) !== -1;
+
+            // Add attributes and classes
+            keyElement.setAttribute("type", "button");
+            keyElement.classList.add("keyboard-key");
+
+            switch (key) {
+                case "backspace":
+                    keyElement.classList.add("keyboard-key-wide");
+                    keyElement.innerHTML = createIconHTML("backspace");
+
+                    keyElement.addEventListener("click", () => {
+                        this.properties.value = this.properties.value.substring(0, this.properties.value.length - 1);
+                        
+                    })
+
+                    break;
+            }
+        })
     },
 
     _triggerEvent(handlerName) {
