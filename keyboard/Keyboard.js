@@ -19,7 +19,17 @@ const Keyboard = {
     },
 
     init() {
+        // Create main elements
+        this.elements.main = document.createElement("div");
+        this.elements.keysContainer = document.createElement("div");
 
+        // Set up main elements
+        this.elements.main.classList.add("keyboard", "1keyboard-hidden");
+        this.elements.keysContainer.classList.add("keyboard-keys");
+
+        // Add to DOM
+        this.elements.main.appendChild(this.elements.keysContainer);
+        document.body.appendChild(this.elements.main);
     },
 
     _createKeys() {
@@ -43,3 +53,6 @@ const Keyboard = {
     }
 };
 
+window.addEventListener("DOMContentLoaded", function() {
+    Keyboard.init();
+})
