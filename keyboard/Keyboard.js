@@ -65,10 +65,22 @@ const Keyboard = {
 
                     keyElement.addEventListener("click", () => {
                         this.properties.value = this.properties.value.substring(0, this.properties.value.length - 1);
-                        
+                        this._triggerEvent("oninput");
                     })
 
                     break;
+
+                    case "caps":
+                        keyElement.classList.add("keyboard-key-wide keyboard-key-activable");
+                        keyElement.innerHTML = createIconHTML("keyboard_capslock");
+    
+                        keyElement.addEventListener("click", () => {
+                            this._toggleCapsLock;
+                            // Display green light, and toggle method will force class to be added to key element
+                            keyElement.classList.toggle("keyboard-key-active", this.properties.capsLock);
+                        })
+    
+                        break;
             }
         })
     },
