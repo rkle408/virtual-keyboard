@@ -70,17 +70,39 @@ const Keyboard = {
 
                     break;
 
-                    case "caps":
-                        keyElement.classList.add("keyboard-key-wide keyboard-key-activable");
-                        keyElement.innerHTML = createIconHTML("keyboard_capslock");
+                case "caps":
+                    keyElement.classList.add("keyboard-key-wide keyboard-key-activable");
+                    keyElement.innerHTML = createIconHTML("keyboard_capslock");
     
-                        keyElement.addEventListener("click", () => {
-                            this._toggleCapsLock;
-                            // Display green light, and toggle method will force class to be added to key element
-                            keyElement.classList.toggle("keyboard-key-active", this.properties.capsLock);
-                        })
+                    keyElement.addEventListener("click", () => {
+                        this._toggleCapsLock;
+                        // Display green light, and toggle method will force class to be added to key element
+                        keyElement.classList.toggle("keyboard-key-active", this.properties.capsLock);
+                    })
     
-                        break;
+                    break;
+
+                case "enter":
+                    keyElement.classList.add("keyboard-key-wide");
+                    keyElement.innerHTML = createIconHTML("keyboard_return");
+        
+                    keyElement.addEventListener("click", () => {
+                        this.properties.value =+ "\n";
+                        keyElement._triggerEvent("oninput");
+                    })
+        
+                    break;
+
+                case "space":
+                    keyElement.classList.add("keyboard-key-extrawide");
+                    keyElement.innerHTML = createIconHTML("space_bar");
+            
+                    keyElement.addEventListener("click", () => {
+                        this.properties.value =+ " ";
+                        keyElement._triggerEvent("oninput");
+                    })
+            
+                    break;
             }
         })
     },
