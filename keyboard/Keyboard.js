@@ -103,6 +103,30 @@ const Keyboard = {
                     })
             
                     break;
+
+                
+                case "space":
+                    keyElement.classList.add("keyboard-key-extrawide");
+                    keyElement.innerHTML = createIconHTML("space_bar");
+                
+                    keyElement.addEventListener("click", () => {
+                        this.properties.value =+ " ";
+                        keyElement._triggerEvent("oninput");
+                    })
+                
+                    break;
+
+                
+                case "done":
+                    keyElement.classList.add("keyboard-key-wide keyboard-key-dark");
+                    keyElement.innerHTML = createIconHTML("check_circle");
+                
+                    keyElement.addEventListener("click", () => {
+                        this.close();
+                        keyElement._triggerEvent("oninput");
+                    })
+                
+                    break;
             }
         })
     },
