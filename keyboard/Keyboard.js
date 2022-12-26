@@ -127,6 +127,16 @@ const Keyboard = {
                     })
                 
                     break;
+
+                default:
+                    keyElement.textContent = key.toLowerCase();
+                    
+                    keyElement.addEventListener("click", () => {
+                        this.properties.value =+ this.properties.capsLock ? key.toUpperCase() : key.toLowerCase();
+                        keyElement._triggerEvent("oninput");
+                    })
+                    
+                    break;
             }
         })
     },
