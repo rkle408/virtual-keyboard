@@ -26,6 +26,7 @@ const Keyboard = {
         // Set up main elements
         this.elements.main.classList.add("keyboard", "1keyboard-hidden");
         this.elements.keysContainer.classList.add("keyboard-keys");
+        this.elements.keysContainer.appendChild(this._createKeys());
 
         // Add to DOM
         this.elements.main.appendChild(this.elements.keysContainer);
@@ -71,7 +72,7 @@ const Keyboard = {
                     break;
 
                 case "caps":
-                    keyElement.classList.add("keyboard-key-wide keyboard-key-activable");
+                    keyElement.classList.add("keyboard-key-wide", "keyboard-key-activatable");
                     keyElement.innerHTML = createIconHTML("keyboard_capslock");
     
                     keyElement.addEventListener("click", () => {
@@ -99,7 +100,7 @@ const Keyboard = {
             
                     keyElement.addEventListener("click", () => {
                         this.properties.value =+ " ";
-                        keyElement._triggerEvent("oninput");
+                        this._triggerEvent("oninput");
                     })
             
                     break;
@@ -111,19 +112,19 @@ const Keyboard = {
                 
                     keyElement.addEventListener("click", () => {
                         this.properties.value =+ " ";
-                        keyElement._triggerEvent("oninput");
+                        this._triggerEvent("oninput");
                     })
                 
                     break;
 
                 
                 case "done":
-                    keyElement.classList.add("keyboard-key-wide keyboard-key-dark");
+                    keyElement.classList.add("keyboard-key-wide", "keyboard-key-dark");
                     keyElement.innerHTML = createIconHTML("check_circle");
                 
                     keyElement.addEventListener("click", () => {
                         this.close();
-                        keyElement._triggerEvent("oninput");
+                        this._triggerEvent("oninput");
                     })
                 
                     break;
@@ -133,12 +134,21 @@ const Keyboard = {
                     
                     keyElement.addEventListener("click", () => {
                         this.properties.value =+ this.properties.capsLock ? key.toUpperCase() : key.toLowerCase();
-                        keyElement._triggerEvent("oninput");
+                        this._triggerEvent("oninput");
                     })
                     
                     break;
             }
-        })
+
+            // Container for all the keys
+            fragment.appendChild(keyElement);
+
+            if (insertLineBreak) {
+                fragment.appendChild(document.createElement("br"));
+            }
+        });
+
+        return fragment;
     },
 
     _triggerEvent(handlerName) {
