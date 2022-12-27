@@ -164,13 +164,19 @@ const Keyboard = {
     },
 
     close() {
-
+        this.value = "";
+        this.eventHandlers.oninput = oninput;
+        this.eventHandlers.onclose = onclose;
+        this.elements.main.classList.add("keyboard-hidden");
     }
 };
 
 window.addEventListener("DOMContentLoaded", function() {
     Keyboard.init();
     Keyboard.open("dcode", function (currentValue) {
-        console.log(currentValue);
-    })
+        console.log(`Value Changed: ${currentValue}`);
+    }, function (currentValue) {
+        console.log(`Keyboard closed! Finishing value: ${currentValue}`)
+    }
+    )
 })
