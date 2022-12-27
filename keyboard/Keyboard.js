@@ -47,7 +47,7 @@ const Keyboard = {
 
         // Creates HTML for an icon
         const createIconHTML = (icon_name) => {
-            return `<i class="materials-icons">${icon_name}</i>`;
+            return `<i class="material-icons">${icon_name}</i>`;
         };
 
         // Loop through the characters
@@ -76,7 +76,7 @@ const Keyboard = {
                     keyElement.innerHTML = createIconHTML("keyboard_capslock");
     
                     keyElement.addEventListener("click", () => {
-                        this._toggleCapsLock;
+                        this._toggleCapsLock();
                         // Display green light, and toggle method will force class to be added to key element
                         keyElement.classList.toggle("keyboard-key-active", this.properties.capsLock);
                     })
@@ -88,8 +88,8 @@ const Keyboard = {
                     keyElement.innerHTML = createIconHTML("keyboard_return");
         
                     keyElement.addEventListener("click", () => {
-                        this.properties.value =+ "\n";
-                        keyElement._triggerEvent("oninput");
+                        this.properties.value += "\n";
+                        this._triggerEvent("oninput");
                     })
         
                     break;
@@ -99,24 +99,11 @@ const Keyboard = {
                     keyElement.innerHTML = createIconHTML("space_bar");
             
                     keyElement.addEventListener("click", () => {
-                        this.properties.value =+ " ";
+                        this.properties.value += " ";
                         this._triggerEvent("oninput");
                     })
             
                     break;
-
-                
-                case "space":
-                    keyElement.classList.add("keyboard-key-extrawide");
-                    keyElement.innerHTML = createIconHTML("space_bar");
-                
-                    keyElement.addEventListener("click", () => {
-                        this.properties.value =+ " ";
-                        this._triggerEvent("oninput");
-                    })
-                
-                    break;
-
                 
                 case "done":
                     keyElement.classList.add("keyboard-key-wide", "keyboard-key-dark");
@@ -133,7 +120,7 @@ const Keyboard = {
                     keyElement.textContent = key.toLowerCase();
                     
                     keyElement.addEventListener("click", () => {
-                        this.properties.value =+ this.properties.capsLock ? key.toUpperCase() : key.toLowerCase();
+                        this.properties.value += this.properties.capsLock ? key.toUpperCase() : key.toLowerCase();
                         this._triggerEvent("oninput");
                     })
                     
@@ -156,7 +143,7 @@ const Keyboard = {
     },
 
     _toggleCapsLock() {
-        console.log(`Caps Lock Toggled!`);
+        this.properties.capsLock = !this.properties.capsLock;
     },
 
     open(initialValue, oninput, onclose) {
