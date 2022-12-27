@@ -24,9 +24,11 @@ const Keyboard = {
         this.elements.keysContainer = document.createElement("div");
 
         // Set up main elements
-        this.elements.main.classList.add("keyboard", "1keyboard-hidden");
+        this.elements.main.classList.add("keyboard", "keyboard-hidden");
         this.elements.keysContainer.classList.add("keyboard-keys");
         this.elements.keysContainer.appendChild(this._createKeys());
+
+        this.elements.keys = this.elements.keysContainer.querySelectorAll(".keyboard-key");
 
         // Add to DOM
         this.elements.main.appendChild(this.elements.keysContainer);
@@ -139,15 +141,26 @@ const Keyboard = {
     },
 
     _triggerEvent(handlerName) {
-        console.log(`Event Triggered: Event name: ${handlerName}`);
+        if (typeof this.eventHandlers[handlerName] == "function") {
+            this.eventHandlers[handlerName](this.properties.value);
+        }
     },
 
     _toggleCapsLock() {
         this.properties.capsLock = !this.properties.capsLock;
+
+        for (const key of this.elements.keys) {
+            if (key.childElement === 0) {
+                key.textContent = this.properties.capsLock ? key.textContent.toUpperCase() : key.textContent.toLowerCase();
+            }
+        }
     },
 
     open(initialValue, oninput, onclose) {
-        
+        this.properties.value = initialValue  || "";
+        this.eventHandlers.oninput = oninput;
+        this.eventHandlers.onclose = onclose;
+        this.elements.main.classList.remove("keyboard-hidden");
     },
 
     close() {
@@ -157,4 +170,7 @@ const Keyboard = {
 
 window.addEventListener("DOMContentLoaded", function() {
     Keyboard.init();
+    Keyboard.open("dcode", function (currentValue) {
+        console.log(currentValue);
+    })
 })
